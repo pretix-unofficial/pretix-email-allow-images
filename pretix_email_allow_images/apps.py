@@ -22,7 +22,7 @@ class PluginApp(PluginConfig):
         visible = True
         version = __version__
         category = "CUSTOMIZATION"
-        compatibility = "pretix>=2023.8.0"
+        compatibility = "pretix>=2023.6.0"
 
     def ready(self):
         from . import signals  # NOQA

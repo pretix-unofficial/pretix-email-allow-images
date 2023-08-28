@@ -1,9 +1,17 @@
-/home/mira/Repos/pretix/pretix-email-allow-images2/pretix_email_allow_images/apps.py
+Allow images in E-mails
 ==========================
 
-This is a plugin for `pretix`_. 
+This is a plugin for `pretix`_. It allows event organizers to use images in organizer-generated E-mail templates.
 
-Allow images in organizer-generated email templates
+Usage
+-----
+
+To use the plugin, first enable it in the *Settings > Plugins* section of your event. Afterwards, in the *Settings > E-mail* section, you find the new E-mail designs "Default (images allowed)" and "Simple with logo (images allowed)". By switching to these designs, you enable `<img>` tags and the markdown image syntax (`![alt](link)`) for your E-mail templates.
+
+Warning
+-------
+
+We recommend against installing this plugin on Pretix installations with untrusted organizers, as they might use it to add unwanted content or trackers to their email templates.
 
 Development setup
 -----------------
