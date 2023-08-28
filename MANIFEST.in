@@ -1,0 +1,5 @@
+recursive-include pretix_email_allow_images/static *
+recursive-include pretix_email_allow_images/templates *
+recursive-include pretix_email_allow_images/locale *
+include LICENSE
+exclude .gitlab-ci.yml

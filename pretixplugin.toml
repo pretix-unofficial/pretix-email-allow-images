@@ -1,0 +1,5 @@
+[plugin]
+package = "pretix-email-allow-images"
+modules = [ "pretix_email_allow_images" ]
+marketplace_name = "email-allow-images"
+
