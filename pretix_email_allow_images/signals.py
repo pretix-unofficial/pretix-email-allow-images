@@ -1,50 +1,22 @@
 # Register your receivers here
-import bleach
-import markdown
-from bleach.linkifier import DEFAULT_CALLBACKS
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from pretix.base.email import TemplateBasedMailRenderer
 from pretix.base.signals import register_html_mail_renderers
 from pretix.base.templatetags.rich_text import (
     ALLOWED_ATTRIBUTES,
-    ALLOWED_PROTOCOLS,
     ALLOWED_TAGS,
-    EMAIL_RE,
-    URL_RE,
-    EmailNl2BrExtension,
-    LinkifyAndCleanExtension,
-    abslink_callback,
-    truelink_callback,
+    markdown_compile_email,
 )
-
-
-def markdown_compile_email_allow_imgs(source):
-    linker = bleach.Linker(
-        url_re=URL_RE,
-        email_re=EMAIL_RE,
-        callbacks=DEFAULT_CALLBACKS + [truelink_callback, abslink_callback],
-        parse_email=True,
-    )
-    return markdown.markdown(
-        source,
-        extensions=[
-            "markdown.extensions.sane_lists",
-            EmailNl2BrExtension(),
-            LinkifyAndCleanExtension(
-                linker,
-                tags=ALLOWED_TAGS + ["img"],
-                attributes=dict(ALLOWED_ATTRIBUTES, img=["src", "alt", "title"]),
-                protocols=ALLOWED_PROTOCOLS,
-                strip=False,
-            ),
-        ],
-    )
 
 
 class TemplateBasedMailRendererWithImgs(TemplateBasedMailRenderer):
     def compile_markdown(self, plaintext):
-        return markdown_compile_email_allow_imgs(plaintext)
+        return markdown_compile_email(
+            source=plaintext,
+            allowed_tags=ALLOWED_TAGS + ["img"],
+            allowed_attributes=dict(ALLOWED_ATTRIBUTES, img=["src", "alt", "title"]),
+        )
 
 
 class ClassicMailRendererWithImgs(TemplateBasedMailRendererWithImgs):
