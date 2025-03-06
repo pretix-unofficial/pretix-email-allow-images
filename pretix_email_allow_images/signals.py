@@ -14,7 +14,7 @@ class TemplateBasedMailRendererWithImgs(TemplateBasedMailRenderer):
     def compile_markdown(self, plaintext):
         return markdown_compile_email(
             source=plaintext,
-            allowed_tags=ALLOWED_TAGS + ["img"],
+            allowed_tags=ALLOWED_TAGS | {"img"},
             allowed_attributes=dict(ALLOWED_ATTRIBUTES, img=["src", "alt", "title"]),
         )
 
